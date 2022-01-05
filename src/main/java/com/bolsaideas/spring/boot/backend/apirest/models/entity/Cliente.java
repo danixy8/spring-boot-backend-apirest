@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
+// import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -37,14 +38,17 @@ public class Cliente implements Serializable{
 	@Column(nullable = false, unique=true)
 	private String email;
 	
+	@NotNull(message="no puede estar vacio")
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
+
+	private String foto;
 	
-	@PrePersist
-	public void prePersist() {
-		createAt = new Date();
-	}
+	//@PrePersist  Usare mejor un datepicker en angular =D
+	// public void prePersist() {
+	// 	createAt = new Date();
+	// }
 	
 	public Long getId() {
 		return id;
@@ -87,5 +91,15 @@ public class Cliente implements Serializable{
 	}
 
 	private static final long serialVersionUID = 1L;
+
+
+	public String getFoto() {
+		return this.foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 
 }
